@@ -22,20 +22,22 @@ def apply_coupons(cart, coupons) # {cart}, {coupons}
   coupons.each do |coupon|
     if cart.keys.include? coupon[:item]
       #does the cart hash have a key that matches the :item in the coupon hash?
-      # if there is a coupon, create new item
-      new_item = "#{coupon[:item]} W/COUPON"
-      if cart[new_item]
-        cart[new_item][:count] += coupon[:num]
-        # item:count is >= coupon:num, alter count and go back up to first if
-      else
-        # item:count is < coupon:num, list current item
-        cart[new_item] = { 
-          count: coupon[:num],
-          price: coupon[:cost] / coupon[:num],
-          clearance: cart[coupon[:item]][:clearance]
-        }
+      if cart[coupon[:item]][:count] >= coupon[:num]
+        # if there is a coupon, create new item
+        new_item = "#{coupon[:item]} W/COUPON"
+        if cart[new_item]
+          cart[new_item][:count] += coupon[:num]
+          # item:count is >= coupon:num, alter count and go back up to first if
+        else
+          # item:count is < coupon:num, list current item
+          cart[new_item] = { 
+            count: coupon[:num],
+            price: coupon[:cost] / coupon[:num],
+            clearance: cart[coupon[:item]][:clearance]
+          }
+        end
+        cart[coupon[:item]][:count] -= coupon[:num]
       end
-      cart[coupon[:item]][:count] -= coupon[:num]
     end
   end
   cart
