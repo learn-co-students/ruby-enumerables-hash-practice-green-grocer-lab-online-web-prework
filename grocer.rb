@@ -1,4 +1,3 @@
-require 'pry'
 def consolidate_cart(cart)
    # turn array into hash using .reduce
   new_cart = {}
@@ -55,15 +54,25 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
+  # consolidate the cart
   consolidated = consolidate_cart(cart)
+  
+  # apply coupons to the consolidated cart
   coupon_cart = apply_coupons(consolidated, coupons)
+  
+  # apply discounts to the coupon_cart
   discount_cart = apply_clearance(coupon_cart)
 
   total_price = 0.0
+  
+  # iterate through discount_cart
   discount_cart.keys.each do |item|
+    #add item[:price] * item[:count] to total_price
     total_price += discount_cart[item][:price] * discount_cart[item][:count]
   end
-  if total_price > 100
-      total_price = total_price - (total_price * 0.10)
-    end
+  if total_price > 100.00
+    # apply 10% discount and adjust total_price
+    total_price = total_price - (total_price * 0.10)
+  end
+  total_price
 end
