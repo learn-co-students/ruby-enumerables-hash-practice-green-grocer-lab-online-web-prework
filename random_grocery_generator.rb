@@ -58,11 +58,14 @@ end
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
 
 def consolidate_cart(cart)
+	consolidated_cart = new
 	cart.each do |c|
+
 		if c.include?(:count)
 			count += 1
 		else
 			c[:count] = 1
 		end
 	end
+	return consolidated_cart
 end
