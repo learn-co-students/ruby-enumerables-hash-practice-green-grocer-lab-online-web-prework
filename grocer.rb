@@ -4,6 +4,7 @@ def consolidate_cart(cart)
 	consolidated_cart = {}
 	cart.each do |c|
     item = c.keys.first
+<<<<<<< HEAD
     #binding.pry
     if consolidated_cart[item]
 			consolidated_cart[item][:count] += 1
@@ -14,6 +15,17 @@ def consolidate_cart(cart)
         :price => c[item][:price],
         :clearance => c[item][:clearance],
         :count => 1
+=======
+    binding.pry
+    if consolidated_cart.keys.include? (:count)
+			consolidated_cart[item][:count] += 1
+
+    else
+			consolidated_cart[item] = {
+        consolidated_cart[item][:price] => c[:price],
+        consolidated_cart[item][:clearance] => c[:price],
+        consolidated_cart[item][:count] => 1
+>>>>>>> 5c2f25ff71cb4a76c6756bf3fda801792e95f6ae
       }
 
     end
