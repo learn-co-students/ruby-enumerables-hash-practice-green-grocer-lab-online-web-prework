@@ -4,29 +4,14 @@ def consolidate_cart(cart)
 	consolidated_cart = {}
 	cart.each do |c|
     item = c.keys.first
-<<<<<<< HEAD
-    #binding.pry
+
     if consolidated_cart[item]
 			consolidated_cart[item][:count] += 1
-
     else
-
 			consolidated_cart[item] = {
         :price => c[item][:price],
         :clearance => c[item][:clearance],
-        :count => 1
-=======
-    binding.pry
-    if consolidated_cart.keys.include? (:count)
-			consolidated_cart[item][:count] += 1
-
-    else
-			consolidated_cart[item] = {
-        consolidated_cart[item][:price] => c[:price],
-        consolidated_cart[item][:clearance] => c[:price],
-        consolidated_cart[item][:count] => 1
->>>>>>> 5c2f25ff71cb4a76c6756bf3fda801792e95f6ae
-      }
+        :count => 1 }
 
     end
 	end
@@ -34,8 +19,28 @@ def consolidate_cart(cart)
 end
 
 
+
 def apply_coupons(cart, coupons)
   # code here
+	count = 0
+	while count < coupons.length
+		coupon = coupons[count][:item]
+		if cart.has_key?(coupon)
+			if coupon.match(/W\/COUPON/)
+				cart[coupon][:count] = cart[coupon][:count] + coupons[count][:num]
+				count += 1
+			end
+			else
+				cart[coupon][:count] = cart[coupon][:count] - coupons[count][:num]
+				cart[coupon + " W/COUPON"] ={
+					:price => coupons[count][:cost]/coupons[count][:num],
+					:clearance => cart[coupon][:clearance],
+					:count => coupons[count][:num]
+				}
+			count +=1
+		end
+	end
+	cart
 end
 
 def apply_clearance(cart)
