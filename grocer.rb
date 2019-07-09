@@ -1,17 +1,18 @@
-require "pry"
-def consolidate_cart(cart)
+require 'pry'
+def consolidate_cart(array)
   new_hash = {}
-    cart.each do |item|
-      item.each do |key, value|
+  array.each do |fruit|
+    fruit.each do |key, value|
       if new_hash[key]
         new_hash[key][:count] += 1 
       else 
-      new_hash[key] = value 
-      new_hash[key][:count] = 1
-      end
+        new_hash[key] = value 
+        new_hash[key][:count] = 1 
+        #binding.pry
+       end
     end
   end
-  new_hash
+  return new_hash
 end
 
 
@@ -43,6 +44,4 @@ def apply_clearance(cart)
   cart 
 end
 
-def checkout(cart, coupons)
-  
-end
+
