@@ -1,14 +1,13 @@
 require 'pry'
 def consolidate_cart(array)
   new_hash = {}
-  array.each do |fruit|
-    fruit.each do |key, value|
+  array.each do |arr|
+    arr.each do |key, value|
       if new_hash[key]
         new_hash[key][:count] += 1 
       else 
         new_hash[key] = value 
         new_hash[key][:count] = 1 
-        #binding.pry
        end
     end
   end
@@ -35,13 +34,25 @@ def apply_coupons(cart, coupons)
 end
 
 def apply_clearance(cart)
- cart.each do |key, value|
-   if value[:clearance] == true
-     value[:price] = (value[:price] * 80)/100
+  
+ cart.each do |key, item|
+   if item[:clearance] == true
+     item[:price] = (item[:price] * 80)/100
  #binding.pry
     end
   end
   cart 
 end
 
-
+def checkout(cart, coupons)
+  cart = consolidate_cart(cart)
+  cart = apply_coupons(cart, coupons)
+  cart = apply_clearance(cart)
+  total = 0 
+  cart.each do |item, property|
+    #binding.pry
+    total += property[:price] * property[:count]
+    total > 100 ? total -= total * 0.1 : total
+  end
+  total
+end
