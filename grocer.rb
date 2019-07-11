@@ -74,6 +74,12 @@ def checkout(cart, coupons)
   cart2.each do |name, price_hash|
   total += price_hash[:price] * price_hash[:count]
 end   
+if total > 100
+  total = (total - (total * 0.1)).round(2) 
+else 
+  total.round(2)
 
-  total > 100 ? total * 0.9 : total
+  #total > 100 ? total * 0.9 : total
+  #ternary operator is the ? shot hand for if else statement example above. 
+end
 end
