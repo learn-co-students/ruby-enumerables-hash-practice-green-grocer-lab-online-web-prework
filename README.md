@@ -32,7 +32,7 @@ three other methods: `consolidate_cart`, `apply_coupons`, and `apply_clearance`.
 
 #### Write the `consolidate_cart` Method
 
-The cart starts as an array of individual items. Translate it into a hash that
+The cart starts as an **Array** of individual items. Translate it into a **Hash** that
 includes the counts for each item with the `consolidate_cart` method.
 
 For instance, if the method is given the array below:
@@ -56,7 +56,11 @@ then the method should return the hash below:
 
 #### Write the `apply_coupons` Method
 
-If the method is given a cart that looks like this:
+Now that we have a way to consolidate carts, we can write some additional 
+methods to work with the consolidated cart data, starting with `apply_coupons`. 
+This method takes in two arguments, a consolidated cart and an array of coupons, 
+and applies the coupons to items in the cart, _if appropriate_. So, for instance, 
+the `apply_coupons` method might take in a consolidated cart that looks like this:
 
 ```ruby
 {
@@ -65,10 +69,10 @@ If the method is given a cart that looks like this:
 }
 ```
 
-and a coupon for avocados that looks like this:
+and an array containing a single coupon for avocados that looks like this:
 
 ```ruby
-{:item => "AVOCADO", :num => 2, :cost => 5.00}
+[{:item => "AVOCADO", :num => 2, :cost => 5.00}]
 ```
 
 then `apply_coupons` should return the following hash:
