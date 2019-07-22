@@ -19,15 +19,7 @@ end
 def apply_coupons(cart, coupons)
 
 count = 0
-save = []
-  while  count < coupons.length do 
-    
-    save.push(coupons[count][:cost] / coupons[count][:num]) 
-    count += 1
-    
-  end
-   save.each_with_index {|el, index| coupons[index][:cost] = el  }
-    
+
   coupons.each do |coupon|
   
   if cart[coupon[:item]]
@@ -38,7 +30,7 @@ save = []
            if !cart["#{coupon[:item]} W/COUPON"]
              
                cart["#{coupon[:item]} W/COUPON"]={
-                 :price => coupon[:cost],
+                 :price => coupon[:cost] / coupon[:num],
                  :clearance => cart[coupon[:item]][:clearance],
                  :count => coupon[:num]
         
