@@ -62,7 +62,7 @@ describe "Grocer" do
       end
 
       it "adds the coupon price to the property hash of couponed item" do
-        expect(@avocado_result["AVOCADO W/COUPON"][:price]).to eq(2.50)
+        expect(@avocado_result["AVOCADO W/COUPON"][:price]).to eq(2.5)
       end
 
       it "adds the count number to the property hash of couponed item" do
