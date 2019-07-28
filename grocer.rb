@@ -1,76 +1,59 @@
+
+    
 def consolidate_cart(cart)
-  counted = {}
-  cart.each do |kv|
-    k = kv.keys.first
-    v = kv.values.first
-    if counted[k]
-      counted[k][:count] += 1
+  new_hash = {}
+  cart.each do |item|
+    if new_hash[item.keys[0]]
+      new_hash[item.keys[0]][:count] += 1
     else
-      counted[k] = v
-      counted[k][:count] = 1
+      new_hash[item.keys[0]] = {
+        count: 1,
+        price: item.values[0][:price],
+        clearance: item.values[0][:clearance]
+      }
     end
   end
-  return counted
-end
-
-def enough_items_for_coupon?(item_count, coupon_for_num)
-  item_count >= coupon_for_num ? true : false
+  new_hash
 end
 
 def apply_coupons(cart, coupons)
-  wcoupon = " W/COUPON"
-
   coupons.each do |coupon|
-    item = coupon[:item]
-    item_w_coupon = item + wcoupon
-    price_of_each = coupon[:cost] / coupon[:num]
-
-    #if not enough items?
-
-    if cart[item]
-      #subtract discounted items from NON-discounted items
-      #but only if coupon meets minimum amount
-      if enough_items_for_coupon?(cart[item][:count], coupon[:num])
-        cart[item][:count] -= coupon[:num]
-
-        #add discounted items to cart
-        cart[item_w_coupon] = {count: 0} unless cart[item_w_coupon]
-        cart[item_w_coupon][:clearance] = cart[item][:clearance]
-        cart[item_w_coupon][:count] += coupon[:num]
-        cart[item_w_coupon][:price] = price_of_each
+    if cart.keys.include? coupon[:item]
+      if cart[coupon[:item]][:count] >= coupon[:num]
+        new_name = "#{coupon[:item]} W/COUPON"
+        if cart[new_name]
+          cart[new_name][:count] += coupon[:num]
+        else
+          cart[new_name] = {
+            count: coupon[:num],
+            price: coupon[:cost]/coupon[:num],
+            clearance: cart[coupon[:item]][:clearance]
+          }
+        end
+        cart[coupon[:item]][:count] -= coupon[:num]
       end
     end
   end
-  return cart
+  cart
 end
 
 def apply_clearance(cart)
-  cart.each_key do |item|
-    # total minus 20/100 of total,
-    cart[item][:price] -= cart[item][:price] * 0.2 unless cart[item][:clearance] == false
+  cart.keys.each do |item|
+    if cart[item][:clearance]
+      cart[item][:price] = (cart[item][:price]*0.80).round(2)
+    end
   end
-  return cart
+  cart
 end
 
 def checkout(cart, coupons)
-  all = apply_clearance(apply_coupons(consolidate_cart(cart), coupons))
-  total = all.values.map { |item|
-    # multiply price by count
-    price = item.fetch(:price)
-    price *= item.fetch(:count)
-  }.reduce(:+)
+  consol_cart = consolidate_cart(cart)
+  cart_with_coupons_applied = apply_coupons(consol_cart, coupons)
+  cart_with_discounts_applied = apply_clearance(cart_with_coupons_applied)
 
-  # 10% discount if over 100
-  total > 100.0 ? total - (total * 0.1) : total
+  total = 0.0
+  cart_with_discounts_applied.keys.each do |item|
+    total += cart_with_discounts_applied[item][:price]*cart_with_discounts_applied[item][:count]
+  end
+  total > 100.00 ? (total * 0.90).round : total
 end
-# def apply_coupons(cart, coupons)
-#   # code here
-# end
-
-# def apply_clearance(cart)
-#   # code here
-# end
-
-# def checkout(cart, coupons)
-#   # code here
-# end
