@@ -1,5 +1,5 @@
 require_relative 'grocer'
-
+require 'pry'
 def items
 	[
 		{"AVOCADO" => {:price => 3.00, :clearance => true}},
@@ -55,3 +55,10 @@ coupons.each do |coupon|
 end
 
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
+
+
+
+
+  
+def apply_clearance(cart)
+  
