@@ -1,7 +1,7 @@
 describe "Grocer" do
   let(:items) do
     [
-      {"AVOCADO" => {:price => 3.00, :clearance => true}},
+      {"AVOCADO" => '{:price => 3.00, :clearance => true : count=>2}},
       {"KALE" => {:price => 3.00, :clearance => false}},
       {"BLACK_BEANS" => {:price => 2.50, :clearance => false}},
       {"ALMONDS" => {:price => 9.00, :clearance => false}},
