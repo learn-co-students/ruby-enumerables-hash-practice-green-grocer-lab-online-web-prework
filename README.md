@@ -21,6 +21,8 @@ When rung up at checkout, however, the customer would expect to get a receipt
 with all of their items listed, the quantity of each item purchased, any coupons
 or discounts that were applied, and the total of all items in the cart.
 
+![Grocery Receipt](https://curriculum-content.s3.amazonaws.com/ruby-enumerables/green-grocer/shopping-1165618_1280.jpg)
+
 Your task in this lab is to write a set of methods to handle the different
 pieces of the checkout process.
 
