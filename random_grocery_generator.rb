@@ -14,6 +14,7 @@ def items
 	]
 end
 
+end
 def coupons
 	[
 		{:item => "AVOCADO", :num => 2, :cost => 5.00},
