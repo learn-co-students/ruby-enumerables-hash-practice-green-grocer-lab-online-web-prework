@@ -1,3 +1,5 @@
+#require 'require'
+
 describe "Grocer" do
   let(:items) do
     [
