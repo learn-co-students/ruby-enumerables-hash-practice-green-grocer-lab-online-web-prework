@@ -1,15 +1,22 @@
 def consolidate_cart(cart)
-  # code here
+  array = cart
+  hash.new{cart}
+  cart.reduce({}) do|item,(price,clearance, count)
 end
 
 def apply_coupons(cart, coupons)
-  # code here
+  cart.select{|item| item-coupons}
 end
 
 def apply_clearance(cart)
-  # code here
+  cart.each{|item| item-clearance}
 end
 
 def checkout(cart, coupons)
-  # code here
+  array = cart
+  hash.new{cart}
+  cart.reduce({}) do|item,(price,clearance, count)
+  cart.select{|item| item-coupons}
+  cart.each{|item| item-20%}
+  cart.map{|total| total > 100 = total-10%}
 end
