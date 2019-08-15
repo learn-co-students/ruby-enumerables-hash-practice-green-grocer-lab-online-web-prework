@@ -6,6 +6,7 @@ def consolidate_cart(cart)
   
   cart.each do |item_array|
   # Iterates through each item (called item_array) in the array (cart) and uses it as an argument.
+  # Can use block pararameters to either work with entire hash or can deconstruct hash.
   
     item_array.each do |name, property_hash|
     # Gets into the key level, as opposed to the name level as above.
@@ -54,7 +55,7 @@ def apply_coupons(cart, coupons)
           
         else
           cart[item_with_coupon] = {}
-          # Since out cart does not have the coupon, reate an empty hash for the item, matching our existing hash structure.
+          # Since our cart does not have the coupon, create an empty hash for the item, matching our existing hash structure.
           
           cart[item_with_coupon][:price] = (coupon[:cost] / coupon[:num])
           # Pulling values from existing coupon. Set price key at value of the coupon cost divided by the number of items required by the coupon. So the avocado coupon price is set at 2.50 (5.00 divided by two items).
@@ -84,7 +85,6 @@ def apply_clearance(cart)
 
   cart.each do |item, property_hash|
   # Iterate into our cart with .each.
-  
     if property_hash[:clearance]
     # Use an "if" statement to check if the :clearance key is truthy. If so, carry on. If not, exit statement and return to cart.
     
