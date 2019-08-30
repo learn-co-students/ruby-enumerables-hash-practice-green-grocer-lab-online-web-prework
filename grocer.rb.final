@@ -2,6 +2,23 @@ def consolidate_cart(items)							# takes a list of unsorted items and consolida
 
   hashed_cart = Hash.new
 
+  # if items.kind_of?(Array)
+  #   puts "IS ARRAY"
+  # elsif items.kind_of?(Hash)
+  #   puts "IS HASH"
+  # else
+  #   puts "SOMETHING ELSE"
+  # end
+
+  # if items.size == 1
+  #   items.each_pair do |item, attrs|
+  #     hashed_cart[item] = attrs
+  #     hashed_cart[item][:count] = 1
+  #   end
+  #   return hashed_cart
+  # end
+  
+
   items.each do |item|					# iterate through all the items
 
     item.each do |n,m|
@@ -27,7 +44,12 @@ def apply_coupons(cart, coupons)						# if we have a coupons for any item then d
     return cart
   end
 
+  puts "Coupon Size: #{coupons.size}"
+
+  puts "#{coupons}"
   coupons.each do |coupon|              # iterate through coupons
+
+    puts "Coupon: #{coupon}"
 
     if cart.keys.include? coupon[:item]      # if cart includes a item with same name of coupon item
 
@@ -64,14 +86,19 @@ def apply_coupons(cart, coupons)						# if we have a coupons for any item then d
 
       end
 
+      new_qty = item_qty - discount_qty
+      puts "New_qty: #{new_qty}"
+      puts "#{item_qty} - #{discount_qty} = #{item_qty-discount_qty}"
+      puts "Cart #{cart}"
 
 			if (item_qty - discount_qty) <= 0					# if all the items are discounted then delete the key
+				puts "Discount >= qty :: #{new_qty}"
 				cart[item_name][:count] = 0
 			else
       	cart[item_name][:count] = item_qty - discount_qty     # deduct discounted items at regular, then add discounted info
 			end
-    end       # End of if cart.keys.include?
-  end       # End of coupons.each do
+    end
+  end
 	cart
 end
 
@@ -84,7 +111,7 @@ def apply_clearance(cart)							# if any items are clearance then discount by 20
     if attrs[:clearance]
       price = attrs[:price]
       # attrs[:price] = "%.2f" % (price * 0.8)
-      attrs[:price] = (price * 0.8).to_f.truncate(2)          # set new price to 80% of old price and set precision to two decimals
+      attrs[:price] = (price * 0.8).to_f.truncate(2)
     end
 
   end
@@ -96,18 +123,24 @@ end
 
 def checkout(unsorted_items, coupons)						# takes a unsorted list of items, consolidates, applies discounts and returns total
 
+  puts "Raw Cart: #{unsorted_items}"
 
   cart = consolidate_cart(unsorted_items)
 
-  # puts "Consolidated Cart: #{cart}"
+  puts "Consolidated Cart: #{cart}"
+
+  # if !coupons.empty? 
+  #   cart = apply_coupons(cart, coupons)
+  # end
+
 
   cart = apply_coupons(cart, coupons)
 
-  # puts "Coupons Applied: #{cart}"
+  puts "Coupons Applied: #{cart}"
 
   cart = apply_clearance(cart)
 
- 	# puts "Clearance Applied: #{cart}"
+	puts "Clearance Applied: #{cart}"
 
   total = 0.0
 
