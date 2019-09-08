@@ -26,27 +26,6 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  # #iterate thru list of coupons
-  # coupons.each do |coupon| 
-  #   item = coupon[:item] #=> "AVACADO"
-  #   # ele is in cart, count is bigger than num of coupon, AND "ele W/ COUPON" ele is not in cart
-  #   # cart[item] => {:count=>2, :price=>3.0, :clearance=>true} for avo OR NIL
-  #   if cart.has_key?(item)
-  #     if cart[item][:count] >= coupon[:num] && !cart.has_key?("#{item} W/ COUPON")
-  #       cart["#{item} W/ COUPON"] = {
-  #         price: coupon[:cost] / coupon[:num], 
-  #         clearance: cart[item][:clearance], 
-  #         count: coupon[:num] 
-  #       }
-  #     elsif cart[item][:count] >= coupon[:num] && cart.has_key?("#{item} W/ COUPON")
-  #       #coupon ele is already in cart
-  #       cart["#{item} W/ COUPON"][:count] += coupon[:num]
-  #     end
-  #     cart[item][:count] -= coupon[:num] #since we're increasing count of AVO W/ COUPON
-  #   end
-  # end
-  # cart
-  
   # Go through each coupon to apply them iteratively
   # Looping through all the coupons in order to apply them
   coupons.each do |coupon|
