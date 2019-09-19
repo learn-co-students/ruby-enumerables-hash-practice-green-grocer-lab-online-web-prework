@@ -1,7 +1,8 @@
 require_relative 'grocer'
 
-def items
-	[
+def items(array)
+  
+  [
 		{"AVOCADO" => {:price => 3.00, :clearance => true}},
 		{"KALE" => {:price => 3.00, :clearance => false}},
 		{"BLACK_BEANS" => {:price => 2.50, :clearance => false}},
@@ -12,8 +13,18 @@ def items
 		{"PEANUTBUTTER" => {:price => 3.00, :clearance => true}},
 		{"BEETS" => {:price => 2.50, :clearance => false}}
 	]
+  
+  items.reduce(array) do |memo ,pair|
+    if memo.length = 1
+      p pair
+    if memo = 2
+      p pair
+    if memo = 3
+      p pair 
+    else
+  end
 end
-
+ 
 def coupons
 	[
 		{:item => "AVOCADO", :num => 2, :cost => 5.00},
