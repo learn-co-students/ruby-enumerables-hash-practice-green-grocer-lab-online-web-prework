@@ -14,11 +14,26 @@ def items
 	]
 end
 
+def consolidate_cart(cart) 
+  cart = [find_item('TEMPEH'), find_item('PEANUTBUTTER'), find_item('ALMONDS')]
+      result = consolidate_cart(cart)
+      result.each do |item, attributes|
+      new_cart[item] ||= attribute_hash 
+      new_cart[item][:count] ? new_cart[item][:count] += 1 :   
+      new_cart[item][:count] = 1 
+      
+      
+  end 
+end 
+
+new_cart
+end
+
 def coupons
 	[
 		{:item => "AVOCADO", :num => 2, :cost => 5.00},
-		{:item => "BEER", :num => 2, :cost => 20.00},
-		{:item => "CHEESE", :num => 3, :cost => 15.00}
+    {:item => "BEER", :num => 2, :cost => 20.00},
+    {:item => "CHEESE", :num => 3, :cost => 15.00}
 	]
 end
 
@@ -54,4 +69,27 @@ coupons.each do |coupon|
 	puts "Get #{coupon[:item].capitalize} for #{coupon[:cost]} when you by #{coupon[:num]}"
 end
 
+def apply_coupons(cart, coupons) 
+  
+  coupons.each do |coupon| 
+    coupon.each do |attribute, value| 
+      name = coupon[:item] 
+    
+      if cart[name] && cart[name][:count] >= coupon[:num] 
+        if cart["#{name} W/COUPON"] 
+          cart["#{name} W/COUPON"][:count] += 1 
+        else 
+          cart["#{name} W/COUPON"] = {:price => coupon[:cost], 
+          :clearance => cart[name][:clearance], :count => 1} 
+        end 
+  
+      cart[name][:count] -= coupon[:num] 
+    end 
+  end 
+end 
+  cart 
+end
+
+def apply_clearance(cart)
+  
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
