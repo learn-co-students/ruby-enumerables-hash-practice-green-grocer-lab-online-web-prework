@@ -55,3 +55,53 @@ coupons.each do |coupon|
 end
 
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
+
+def consolidate_cart
+  
+  [
+    {"AVOCADO" =>{:price =>3.00,:clearance =>true}}
+    {"AVOCADO"=> {:price =>3.00, :clearance =>true}}
+    {"KALE" => {:price =>3.00, :clearance => true}}
+    ]
+    
+    do
+      .map(consolidate_cart){"AVOCADO""KALE"=(:count)}
+    end
+    
+    def apply_coupons("consolidate_cart", "coupon")
+      coupon=[{:item=>"AVOCADO", :num =>2, :cost =>5.00}]
+      
+      {
+        "AVOCADO" => {:price => 3.00, :clearance => true, :count =>3},
+        "KALE" => {:price => 3.00, :clearance => false, :count => 1}
+      }
+      
+    do
+      .map(apply_coupons)
+    end
+    
+    def apply_clearance
+      { 
+        "PEANUTBUTTER" => {:price =>3.00, :clearance => true, :count =>2}
+        "KALE" => {:price =>3.00, :clearance => false, :count=> 3}
+        "SOYMILK" => {:price => 4.50, :clearance => true, :count =>1}
+      }
+      
+      do
+        .map(apply_clearance {:clearance => true |n| n - %20})
+      end
+      
+      
+      def checkout (consolidate_cart, apply_coupons, apply_clearance)
+   
+      puts "Your total is #{consolidate_cart{apply_coupons + apply_clearance}}""
+      
+      if 
+        ("checkout) is > 100
+      then
+          {"checkout" |n| n -%10}
+        end
+        
+      
+      
+        
