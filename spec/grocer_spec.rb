@@ -2,6 +2,7 @@ describe "Grocer" do
   let(:items) do
     [
       {"AVOCADO" => {:price => 3.00, :clearance => true}},
+      {"AVOCADO" => {:price => 3.00, :clearance => true}},
       {"KALE" => {:price => 3.00, :clearance => false}},
       {"BLACK_BEANS" => {:price => 2.50, :clearance => false}},
       {"ALMONDS" => {:price => 9.00, :clearance => false}},
@@ -35,7 +36,8 @@ describe "Grocer" do
     it "increments count when there are multiple items" do
       avocado = find_item('AVOCADO')
       cart = [avocado, avocado, find_item('KALE')]
-
+cart<<('KALE')
+cart = [avocado, avocado, kale]
       result = consolidate_cart(cart)
       expect(result["AVOCADO"][:price]).to eq(3.00)
       expect(result["AVOCADO"][:clearance]).to eq(true)
@@ -313,6 +315,7 @@ describe "Grocer" do
         beer = find_item('BEER')
         cart = Array.new(10, beer)
         expect(checkout(cart, [])).to eq(117.00)
+        coupons.include ('CHEESE', 'AVOCADO', 'BEER', 'PEANUTBUTTER')
       end
     end
   end
