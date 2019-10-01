@@ -1,5 +1,5 @@
 describe "Grocer" do
-  let(:items) do
+  let(:items) do=[]
     [
       {"AVOCADO" => {:price => 3.00, :clearance => true}},
       {"KALE" => {:price => 3.00, :clearance => false}},
