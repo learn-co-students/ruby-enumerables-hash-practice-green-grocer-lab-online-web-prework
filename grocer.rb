@@ -1,5 +1,9 @@
+require 'pry'
+
 def consolidate_cart(cart)
-  # code here
+  final_hash = {}
+  cart.each
+    binding.pry
 end
 
 def apply_coupons(cart, coupons)
