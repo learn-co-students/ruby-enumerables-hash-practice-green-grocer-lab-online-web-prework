@@ -5,13 +5,13 @@ def consolidate_cart(cart)
   cart.each do |element_hash|
     element_name = element_hash.keys[0]
 
-    if final_hash.has_key?(element_name)
-      element _stats[:count] +=1
+    if final_hash.has_key?{element_name}
+       final_hash{element_name}[:count] +=1
     else
       final_hash[element_name] = {
         count: 1,
-        price: element_hash[element_name][:clearence]
-        clearance: element_hash [element_name] [:clearence]
+        price: element_hash[element_name][:price],
+        clearance:element_hash[element_name][:clearence]
       }
     end
 end
@@ -21,11 +21,12 @@ end
 def apply_coupons(cart, coupons)
   coupons.each do |coupon|
     item = coupon [:item]
-    coupon_item = "#{item} W/COUPON"
+  if cart[item]&& coupon[:item][:count] >= coupon[:num] && !cart.has_key?["#{item}W/COUPON"]
+    cart ["#{item} W/COUPON"] = {price:, cleasrence:,count:}
   if cart.has_key?(item)
     if cart[item][:count] >= coupon [:num]
       if !cart[coupon_item]
-        cart[coupon_item] = {count:coupon[:num], price; coupon [:cost]w/coupon[:num]}
+        cart[coupon_item] = {count:coupon[:num],price:coupon[:cost],coupon[:num]}
         cart[:item][:count] -= coupon [:num]
     elsif cart[coupon_item] && cart[item][:count] >= coupon[:num]
       cart[coupon_item][:count]+= coupon[:num]
