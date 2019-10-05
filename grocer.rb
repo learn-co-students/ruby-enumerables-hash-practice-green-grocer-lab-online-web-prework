@@ -22,17 +22,17 @@ def apply_coupons(cart, coupons)
   coupons.each do |coupon|
     item = coupon [:item]
   if cart[item]&& coupon[:item][:count] >= coupon[:num] && !cart.has_key?["#{item}W/COUPON"]
-    cart ["#{item} W/COUPON"] = {price:coupon[: cost] W/COUPON [:num] ,
-      clearence: cart [item][:clearence] ,count:}
+    cart ["#{item}W/COUPON"] = {price:coupon[:cost]COUPON[:num],
+      clearence:cart[item][:clearence],[:count]}
   if cart.has_key?(item)
     if cart[item][:count] >= coupon [:num]
       if !cart[coupon_item]
-        cart[coupon_item] = {count:coupon[:num],price:coupon[:cost],coupon[:num]}
+        cart[coupon_item] = {count:coupon[:num]price:coupon[:cost],coupon[:num]}
         cart[:item][:count] -= coupon [:num]
     elsif cart[coupon_item] && cart[item][:count] >= coupon[:num]
       cart[coupon_item][:count]+= coupon[:num]
+    end
       cart[item][:count] -= coupon [:num]
-      end
     end
   end
 end
@@ -41,7 +41,7 @@ end
 
 def apply_clearance(cart)
   cart.each do [product_name,stats]
-    stats[:price] -= stats[:price] + 0.2 if stats[:clearance]
+    stats[:price] -= stats[:price] * 0.2 if stats[:clearance] == true
 end
 cart
 end
