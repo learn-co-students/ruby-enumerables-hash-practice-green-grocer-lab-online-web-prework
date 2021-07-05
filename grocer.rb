@@ -1,5 +1,6 @@
 def consolidate_cart(cart)
   # code here
+  cart = [{"cleaning" => {:wipes => 2.50, :clearance => true}}, {"cleaning" => towels => 5.00}]
 end
 
 def apply_coupons(cart, coupons)
