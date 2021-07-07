@@ -1,15 +1,83 @@
 def consolidate_cart(cart)
-  # code here
+  
+  hash = {}
+cart.group_by(&:itself).map do |k,v|
+#refer to this to  know more abou array.group_by... :https://stackoverflow.com/questions/37441604/count-how-many-times-an-element-appears-in-an-array-in-ruby 
+
+#create a new hash
+k.each_pair do|el, val|
+     hash[el] = val
+     hash[el][:count] = v.length
+   
+
+  end
+
+end
+hash
 end
 
 def apply_coupons(cart, coupons)
-  # code here
+
+count = 0
+
+  coupons.each do |coupon|
+  
+  if cart[coupon[:item]]
+     
+        if cart[coupon[:item]][:count] >= coupon[:num]
+          
+           cart[coupon[:item]][:count] =cart[coupon[:item]][:count] - coupon[:num]
+           if !cart["#{coupon[:item]} W/COUPON"]
+             
+               cart["#{coupon[:item]} W/COUPON"]={
+                 :price => coupon[:cost] / coupon[:num],
+                 :clearance => cart[coupon[:item]][:clearance],
+                 :count => coupon[:num]
+        
+               }
+             else
+               cart["#{coupon[:item]} W/COUPON"][:count] += coupon[:num]
+          end
+          
+        end   
+  
+  end 
+ 
+end  
+cart
+
 end
 
 def apply_clearance(cart)
-  # code here
+  cart.each do |key, val|
+      if cart[key][:clearance] 
+      
+        cart[key][:price] =  cart[key][:price] * 0.8
+          cart[key][:price] =cart[key][:price].round(2) 
+          
+      end
+  end
+  cart
 end
 
 def checkout(cart, coupons)
-  # code here
+
+  total = 0
+  newCart = consolidate_cart(cart)
+  cart_with_coupon = apply_coupons(newCart, coupons)
+  cart_with_discount = apply_clearance(cart_with_coupon)
+
+cart_with_discount.each do |key,val|
+  total +=  (cart_with_discount[key][:price] * cart_with_discount[key][:count] ) 
+end 
+
+
+  if  total >100
+        total *= 0.9  
+  end
+
+total
 end
+    
+
+ 
