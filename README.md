@@ -15,7 +15,7 @@ modern grocery stores, a customer adds to a grocery cart as they walk through
 the store. A cart can be thought of as a _collection_ of grocery items. Each
 grocery item has specific attributes, such as a sale price, or whether or not
 its on clearance. There may be multiples of the same item in the cart, mixed
-together in no particular order.
+together in no particular order. 
 
 When rung up at checkout, however, the customer would expect to get a receipt
 with all of their items listed, the quantity of each item purchased, any coupons
