@@ -57,13 +57,26 @@ end
 
 def checkout(cart, coupons)
   cart_2 = consolidate_cart(cart)
-
+binding.pry
   apply_coupons(cart_2, coupons)
-
+binding.pry
   apply_clearance(cart_2)
-
+binding.pry
   receipt = register(cart_2)
-  
+
+  puts receipt
   return receipt
 end
 
+cart = [
+  {"BEER" => {:price => 13.00, :clearance => false}},
+  {"BEER" => {:price => 13.00, :clearance => false}},
+  {"BEER" => {:price => 13.00, :clearance => false}}
+]
+
+coupons = [
+  {:item => "BEER", :num => 2, :cost => 20.00},
+  {:item => "BEER", :num => 2, :cost => 20.00}
+]
+
+checkout(cart, coupons)
